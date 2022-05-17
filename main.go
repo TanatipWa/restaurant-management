@@ -3,12 +3,11 @@ package main
 import (
 	"os"
 
+	"github.com/TanatipWa/restaurant-management/database"
+	"github.com/TanatipWa/restaurant-management/middleware"
+	"github.com/TanatipWa/restaurant-management/routes"
 	"github.com/gin-gonic/gin"
 	"go.mongodb.org/mongo-driver/mongo"
-
-	"github.com/TanatipWa/restaurant-management/database"
-	"github.com/TanatipWa/restaurant-management/routes"
-	"github.com/TanatipWa/restaurant-management/middleware"
 )
 
 var foodCollection *mongo.Collection = database.OpenCollection(database.Client, "food")
@@ -33,5 +32,4 @@ func main() {
 	routes.InvoiceRoutes(router)
 
 	router.Run(":" + port)
-
 }
