@@ -1,1 +1,0 @@
-MongoDb := "mongodb+srv://user1:1234@gocourse.xj2z0.mongodb.net/?retryWrites=true&w=majority"
