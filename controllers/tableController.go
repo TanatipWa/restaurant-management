@@ -19,7 +19,19 @@ var tableCollection *mongo.Collection = database.OpenCollection(database.Client,
 
 func GetTables() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		var ctx, cancel = context.WithTimeout(context.Background(), 100*time.Second)
+		defer cancel()
 
+		result, err := orderCollection.Find(ctx, bson.M{})
+		defer cancel()
+		if err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while listing table items"})
+		}
+		var allTables []bson.M
+		if err = result.All(ctx, &allTables); err != nil {
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while iterates the cursor and decodes table items"})
+		}
+		c.JSON(http.StatusOK, allTables)
 	}
 }
 

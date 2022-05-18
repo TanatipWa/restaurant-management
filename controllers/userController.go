@@ -50,6 +50,7 @@ func GetUsers() gin.HandlerFunc {
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while listing user items"})
 		}
+		
 
 		var allUsers []bson.M
 		if err = result.All(ctx, &allUsers); err != nil {
@@ -94,13 +95,9 @@ func Signup() gin.HandlerFunc {
 			return
 		}
 
-		//you'll check if the email has already been used by another user
-
 		count, err := userCollection.CountDocuments(ctx, bson.M{"email": user.Email})
 		if err != nil {
 			c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
-			// c.JSON(http.StatusInternalServerError, gin.H{"error": "error occured while checking for the email"})
-
 			return
 		}
 		if count > 0 {

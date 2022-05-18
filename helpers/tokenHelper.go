@@ -52,7 +52,6 @@ func GenerateAllTokens(email string, firstName string, lastName string, uid stri
 	}
 
 	return token, refreshToken, err
-
 }
 
 func UpdateAllTokens(signedToken string, signedRefreshToken string, userId string) {
@@ -78,8 +77,8 @@ func UpdateAllTokens(signedToken string, signedRefreshToken string, userId strin
 		log.Panic(err)
 		return
 	}
-	return
 
+	return
 }
 
 func ValidateToken(signedToken string) (claims *SignedDetails, msg string) {
